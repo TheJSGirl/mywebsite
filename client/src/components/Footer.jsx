@@ -4,7 +4,7 @@ const Footer = () => {
   return(
     <div>
       <div className="row">
-        <div className="col s6 offset-s3 m3 offset-m6  l4 offset-l4">
+        <div className="col s10 offset-s1  m6 offset-m3  l4 offset-l4">
           <div className="chip">
             <i className="fa fa-github" aria-hidden="true"></i>
             &nbsp;&nbsp;
@@ -14,13 +14,14 @@ const Footer = () => {
           <div className="chip">
             <i className="fa fa-twitter" aria-hidden="true"></i>
             &nbsp;&nbsp;
-            Twitter
+            <a href="https://twitter.com/thejsgrl" target="_blank">Twitter</a>
           </div>
 
           <div className="chip">
             <i className="fa fa-envelope" aria-hidden="true"></i>  
             &nbsp;&nbsp;          
-            Gmail
+            <a href="mailto:prinegi100@gmail.com">Gmail</a>
+           
           </div>
         
         </div>

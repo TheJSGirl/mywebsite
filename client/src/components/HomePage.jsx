@@ -5,9 +5,14 @@ const Home = () => {
   return(
     <div className="container">
       <div className="row"><br/>
-        <div>
-        <img src="http://lorempixel.com/400/200" alt="image not found" className="responsive-img "/>
-          
+        <div className="row">
+          <br/><br/>
+          <div className="col s6 offset-s3">
+          <img src="images/img.jpg" alt="my pic" 
+            style={{height:'150px', width: '150px'}}
+            className="responsive-img circle"/>
+            
+          </div>
         </div>
         <h1>About Me</h1>
         <p>
