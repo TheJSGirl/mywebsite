@@ -2,6 +2,8 @@ import React from 'react';
 import projectData from '../projects/data';
 import ProjectCard from './ProjectCard.jsx'; 
 
+const  imgArray = ['img1.png', 'img.jpg' ];
+
 const Project = () => {
   let count = 0;
 
@@ -10,7 +12,7 @@ const Project = () => {
        {/*heading for the project page*/}
         <div className="center">
           <h4>My Projects </h4>
-          <p>Thats what I did till now. Visit soon to see more!</p>
+          <p className="teal-text text-darken-2">Thats what I did till now. Visit soon to see more!</p>
         </div>
         
         
@@ -19,7 +21,7 @@ const Project = () => {
             {
               projectData.map((project) => {
                 return(
-                  <ProjectCard key={++count} project={project}/>
+                  <ProjectCard key={count++} project={project}/>
                 );
               })
             }
