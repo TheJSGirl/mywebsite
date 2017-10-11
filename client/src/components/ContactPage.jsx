@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 class Contact extends Component{
   constructor(props){
@@ -31,15 +32,12 @@ class Contact extends Component{
     };
     // console.log("messagebody",messageBody);
 
-    fetch('/api/messages', {method: 'POST', body:messageBody}
+    axios.post('/api/messages', messageBody)
     .then((data) => {
       this.setState({
         isSending: false,
         isSent: true
       });
-      
-      return console.log('the final result',data);
-
     })
     .catch( (err) => {
       this.setState({
