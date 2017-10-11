@@ -24,19 +24,21 @@ class Contact extends Component{
    }
 
     this.setState({isSending: true});
-
-    fetch('/api/messages', {method: 'POST', body:{
+    const messageBody = {
       senderName: name,
       senderEmail: email,
       senderMessage: message
-    }})
+    };
+    // console.log("messagebody",messageBody);
+
+    fetch('/api/messages', {method: 'POST', body:messageBody})
     .then((data) => {
       this.setState({
         isSending: false,
         isSent: true
       });
       
-      return console.log(data);
+      return console.log('the final result',data);
 
     })
     .catch( (err) => {
@@ -44,7 +46,7 @@ class Contact extends Component{
         isSending: false,
         isSendingFailed: true
       });
-      return console.log(err);
+      return console.error(err);
     });
 
     

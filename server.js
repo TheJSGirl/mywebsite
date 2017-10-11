@@ -40,6 +40,8 @@ app.post('/api/messages', (req, res) => {
     senderEmail,
     senderMessage
   }
+
+  console.log(message);
    
   if(!senderName || !senderEmail){
     console.log('please enter your name and email');
@@ -54,7 +56,7 @@ app.post('/api/messages', (req, res) => {
   
   myMessage.save()
   .then((data) => {
-    // console.log('**Data', data);
+    console.log('**Data', data);
     return res.status(200).json({
       data: data,
       status:'ok',
@@ -71,5 +73,5 @@ app.post('/api/messages', (req, res) => {
 });
 
 app.listen(port, ()=> {
-  console.log('listing at:', port);
+  console.log('listen at port:', port);
 });

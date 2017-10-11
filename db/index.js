@@ -10,7 +10,8 @@ mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true })
     console.log('Successfully connected to MongoDB');
   })
   .catch((err) => {
-    console.log('**ERROR in DB connection, exiting..');
+    // console.log('**ERROR in DB connection, exiting..');
+    console.error(err);
     process.exit(-1);
   })
 
