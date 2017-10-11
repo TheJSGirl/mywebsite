@@ -6,7 +6,7 @@ const Home = () => {
     <div className="container">
       <div className="row">
         <br/><br/>
-        <h3 className="center">few Bytes about me. </h3>        
+        <h3 className="center">few bytes about me. </h3>        
         <div className="col s4 offset-s4">
           <img src="images/img.jpg" alt="my pic" 
             style={{height:'150px', width: '150px'}}
