@@ -31,7 +31,7 @@ class Contact extends Component{
     };
     // console.log("messagebody",messageBody);
 
-    fetch('/api/messages', {method: 'POST', body:messageBody})
+    fetch('/api/messages', {method: 'POST', body:messageBody}
     .then((data) => {
       this.setState({
         isSending: false,
