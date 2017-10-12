@@ -2,6 +2,7 @@ require('./config');
 const express = require('express');
 const db      = require('./db');
 const Message = require('./models/Message');
+const User = require('./models/admin');
 const path = require('path');
 const bodyParser = require('body-parser');
 
@@ -22,7 +23,7 @@ app.use(express.static(staticFilesPath));
 
 
 console.log('*****db', Message);
-
+console.log('******model users', User);
 // serving the files in client/public
 app.get('*', (req, res) => {
   // console.log(staticFilesPath);
