@@ -16,9 +16,10 @@ register.route('/')
         const {name, password} = req.body;
         console.log(req.body);
             const hashPassword = await bcrypt.hash(password, 10);
+            console.log("hashedPassword => ", hashPassword);
             const adminData = {
                 name,
-                password
+                hashPassword
             }
             
         //make instance of model

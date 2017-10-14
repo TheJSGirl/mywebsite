@@ -18,18 +18,36 @@ login.route('/')
         const {name, password} = req.body;
         console.log('request data', req.body);
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // const hashedPassword = await bcrypt.hash(password, 10);
 
-        const adminDataFromDb = await Admin.find({}, (err, data) => {
-            if(err){
-                console.log(err);
-            }
-            else{
+        // console.log('hashedPassword =>', hashedPassword);
 
-                console.log('data from db',data);
-                
-            }
-        });
+        const adminDataFromDb = await Admin.find({"name": name, "password": password});
+
+        // console.log("adminDataFromDb",adminDataFromDb);
+
+        //validation
+        if(!adminDataFromDb.length){
+            return res.status(404).json({
+                data: [],
+                message: 'not found'
+            })
+        }
+
+        if(!name || !password){
+            return res.status(404).json({
+                data: [],
+                message: 'not found'
+            });
+        }
+
+        if(adminDataFromDb.length === 0){
+            return res.status(404).json({
+                data: [],
+                message: 'email is not registered'
+            });
+        }
+
 
         const passwordFromDB = adminDataFromDb[0].password;
         // console.log(passwordFromDB);
@@ -55,6 +73,11 @@ login.route('/')
             message: 'welcome'
         });
 
+        return res.status(200).json({
+                status:'successful',
+                message:'login successfully'
+            });
+
     }
     catch(err){
         // console.log(err.mapped());
@@ -62,7 +85,7 @@ login.route('/')
             return res.status(500).json({
                 data: [],
                 status: 'failed',
-                message: 'failed'
+                message: 'something went wrong'
             }); 
     }
 });
