@@ -2,9 +2,11 @@ require('./config');
 const express = require('express');
 const db      = require('./db');
 const Message = require('./models/Message');
-const User = require('./models/admin');
+const User = require('./models/Admin');
 const path = require('path');
 const bodyParser = require('body-parser');
+const routes = require('./routes');
+const expressValidator = require('express-validator');
 
 const port    = process.env.PORT;
 
@@ -14,6 +16,8 @@ const app = express();
 //middleware
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use('/api', routes);
+app.use(expressValidator());
 
 
 
