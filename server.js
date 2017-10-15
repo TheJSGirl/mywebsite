@@ -14,10 +14,10 @@ const port    = process.env.PORT;
 const app = express();
 
 //middleware
+app.use(expressValidator());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/api', routes);
-app.use(expressValidator());
 
 
 
@@ -25,14 +25,6 @@ app.use(expressValidator());
 const staticFilesPath = path.join(__dirname, 'client', 'public');
 app.use(express.static(staticFilesPath));
 
-
-console.log('*****db', Message);
-console.log('******model users', User);
-// serving the files in client/public
-app.get('*', (req, res) => {
-  // console.log(staticFilesPath);
-  res.sendFile(staticFilesPath + '/index.html');
-});
 
 // app.get('/api/contact')
 
@@ -76,6 +68,14 @@ app.post('/api/messages', (req, res) => {
     });
   });
 });
+
+// serving the files in client/public
+app.get('*', (req, res) => {
+  // console.log(staticFilesPath);
+  res.sendFile(staticFilesPath + '/index.html');
+});
+
+
 
 app.listen(port, ()=> {
   console.log('listen at port:', port);
