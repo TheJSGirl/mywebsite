@@ -28,46 +28,6 @@ app.use(express.static(staticFilesPath));
 
 // app.get('/api/contact')
 
-app.post('/api/messages', (req, res) => {
-  console.log(req.body);
-  const {senderName, senderEmail, senderMessage} = req.body;
-  
-  const message = {
-    senderName,
-    senderEmail,
-    senderMessage
-  }
-
-  console.log(message);
-   
-  if(!senderName || !senderEmail){
-    console.log('please enter your name and email');
-    return res.status(422).json({
-      data:[],
-      status:'failed',
-      message:'Invalid arguments'
-    });
-  }
-
-  let myMessage = new Message(message);
-  
-  myMessage.save()
-  .then((data) => {
-    console.log('**Data', data);
-    return res.status(200).json({
-      data: data,
-      status:'ok',
-      message:'inserted sucessfully'
-    });
-  })
-  .catch((err) => {
-    return res.status(500).json({
-      data: [],
-      status:'failed',
-      message:'something went wrong'
-    });
-  });
-});
 
 // serving the files in client/public
 app.get('*', (req, res) => {
