@@ -1,6 +1,7 @@
 const messages = require('express').Router();
 const Message = require('../models/Message');
-
+const {ObjectID} = require('mongodb');
+const {check, validationResult} = require('express-validator/check');
 
 messages.route('/')
   .get(async (req, res) => {
@@ -24,7 +25,7 @@ messages.route('/')
               data.push(senderData);
             });
 
-            
+
             return res.status(200).json({
               data: data,
               status: 'ok',
@@ -74,6 +75,48 @@ messages.route('/')
     }
   });
 
+
+messages.route('/:messageId')
+  .get(async(req, res) => {
+
+    try{
+
+      check('messageId', 'invalid id').exists().isInt(); // check for messageId
+      
+      const error = req.validationErrors();
+
+      if(error){
+        res.status(400).json({
+          status: 'failed',
+          message: error[0].msg
+        })
+      }
+
+      // if the ID is not valid, send a message
+      if (!ObjectID.isValid(req.params.messageId)) {
+        return res.status(400).json({
+            message : 'invalid id'
+        });
+      }
+      
+
+      // convert the id recieved from the user into an object id
+    
+      const id = new ObjectID(req.params.messageId);
+
+      const message = await Message.find({'_id': id});
+      console.log(message);
+      return res.status(200).json(message);
+    }
+    
+    catch(err){
+      console.log(err);
+      return res.status(500).json(err);
+      
+    }
+    
+
+  })
 
 
     module.exports = messages;
