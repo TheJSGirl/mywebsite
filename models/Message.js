@@ -20,7 +20,7 @@ const messageSchema = new Schema ({
 });
 
 
-module.exports = mongoose.model('Messages', messageSchema); // creating table with name Messages using messageSchema 
+const Message = mongoose.model('Messages', messageSchema); // creating table with name Messages using messageSchema 
 
 // Message.insertMany({
 //   SenderName: 'priyanka',
@@ -33,3 +33,5 @@ module.exports = mongoose.model('Messages', messageSchema); // creating table wi
 // .catch((err) => {
 //   console.log(err);
 // });
+
+module.exports = Message;
