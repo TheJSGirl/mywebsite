@@ -2,35 +2,26 @@ const messages = require('express').Router();
 const Message = require('../models/Message');
 const {ObjectID} = require('mongodb');
 const {check, validationResult} = require('express-validator/check');
+const {checkAuth} = require('../middlewares');  
 
 messages.route('/')
-  .get(async (req, res) => {
+  .get(checkAuth, async (req, res) => {
     try{
-          const sentMessage = await Message.find();
-          if(!sentMessage){
+          const messages = await Message.find();
+          if(!messages){
             return res.status(404).json({
               data: [],
               status: 'failed',
               message: 'not found'
             });
           }
-          let data = [];
-
-          sentMessage.forEach((element) => {
-            const senderData = {
-                senderName: element.senderName,
-                senderEmail: element.senderEmail,
-                sentMessage: element.senderMessage
-              }
-              data.push(senderData);
-            });
 
 
-            return res.status(200).json({
-              data: data,
-              status: 'ok',
-              message: 'Successful'
-            });
+          return res.status(200).json({
+            data: messages,
+            status: 'ok',
+            message: 'Successful'
+          });
       } 
     catch(err){
       return res.status(500).json({
@@ -39,7 +30,9 @@ messages.route('/')
         message: 'something went wrong'
       });
     }
-  })
+  });
+
+messages.route('/')
   .post(async (req, res) => {
     try {
           console.log(req.body);
@@ -76,7 +69,7 @@ messages.route('/')
   });
 
 
-messages.route('/:messageId')
+messages.route(checkAuth, '/:messageId')
   .get(async(req, res) => {
 
     try{
@@ -104,7 +97,7 @@ messages.route('/:messageId')
     
       const id = new ObjectID(req.params.messageId);
 
-      const message = await Message.find({'_id': id});
+      const [message] = await Message.find({'_id': id});
       console.log(message);
       return res.status(200).json(message);
     }

@@ -49,9 +49,11 @@ login.route('/')
         }
 
 
-        const passwordFromDB = adminDataFromDb[0].password;
+        const passwordFromDB = adminDataFromDb.password;
         // console.log(passwordFromDB);
-        const isValidpassword = await bcrypt.compare(password, passwordFromDB);
+        const isValidpassword = await bcrypt.compare(password, passwordFromDB, (err, res) => {
+            console.log(res);
+        });
 
          if(!isValidpassword){
             return res.status(401).json({
@@ -60,11 +62,11 @@ login.route('/')
             });
         }
         const adminDataFromDatabase = {
-            name : adminDataFromDb[0].name,
-            password: adminDataFromDb[0].password
+            name : adminDataFromDb.name,
+            password: adminDataFromDb.password
         }
 
-        console.log('admindatafrom db name', adminDataFromDb[0].name);
+        console.log('admindatafrom db name', adminDataFromDb.name);
         //generate token
         const token = jwt.sign(adminDataFromDatabase, 'abcdefghijklmn', {expiresIn: 60 * 60});
 
